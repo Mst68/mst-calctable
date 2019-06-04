@@ -98,7 +98,7 @@ export default {
       label: 'Checked',
       class: '',
       component: '',
-      type: 'checkbox',
+      type: 'mstCheckbox',
       disabled: false,
       hidden: false,
       func: function(){

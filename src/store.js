@@ -8,7 +8,7 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     calcDef: definition,
-    calcData: data
+    calcData: data.rows
   },
   mutations: {
     setLicencesList: function(state){

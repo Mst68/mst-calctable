@@ -1,5 +1,5 @@
 export default {
-  data: [
+  rows: [
     {"id":"1","name":"Aaaa", "days":20, "day_rate": 16, "total": 0, "rank":"Pilot"},
     {"id":2,"name":"John", "days":22, "day_rate": 15, "total": 0, "checked": 0},
     {"id":3,"name":"Daw", "days":20, "day_rate": 12, "total": 0, "checked":"aa"},

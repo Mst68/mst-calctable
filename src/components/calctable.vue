@@ -33,15 +33,26 @@
     <div id="edit_component" ref="editcomp">
       <component v-if="editMode" :is="componentType" :setup="editSetup" v-model="editValue" @setvalue="setEditValue($event)" @canceledit="cancelEdit()"></component>
     </div>
-  <div>
+  </div>
 </template>
 
 <script>
+  import calcinput from './calcinput';
+  import calcselect from './calcselect';
+  import calcedit from './calcedit';
+  import checkbox from './checkbox';
+  
 export default {
   props: {
     rows: Array,
     setup: Object,
     definitions: Object //definicje, które mogą zawierać listy
+  },
+  components: {
+    'mstCalcInput': calcinput,
+    'mstCalcSelect': calcselect,
+    'mstCalcEdit': calcedit,
+    'mstCheckbox': checkbox,
   },
   computed: {
     cols: function(){
@@ -251,7 +262,7 @@ export default {
       this.$refs.tableCalcTable.focus();
     },
     getDisplayValueClass: function(item, colDef){
-      result = [];
+      var result = [];
       if(colDef.type == 'checkbox'){
         result.push('chbox');
         var val = this.display(item, colDef);
@@ -274,19 +285,102 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
-h3 {
-  margin: 40px 0 0;
+h2 {
+  font-size: 16px;
+  font-weight: bold;
 }
-ul {
-  list-style-type: none;
-  padding: 0;
+
+.table-list {
+  width: 100%;
+  overflow-x: scroll;
 }
-li {
-  display: inline-block;
-  margin: 0 10px;
+
+.table-calc  {
+  position: relative;
 }
-a {
-  color: #42b983;
+
+.table-calc .select-cell {
+  background-color: #dedede;
+}
+.table-calc .item-value {
+  min-width: 20px;
+}
+
+.table-calc .calc-input {
+  width: 100%;
+  height: 100%;
+}
+.table-calc #edit_component {
+  position: absolute;
+  margin: -.5em -.75em;
+}
+
+.table-calc #edit_component input {
+  width: 100%;
+  height: 100%;
+}
+
+
+.table-calc .item-value .chbox {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 0px;
+  cursor: pointer;
+  font-size: 22px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  line-height: 0.8em;
+}
+.table-calc .item-value .chbox .value-text {
+  display: none;
+}
+
+/* Create a custom checkbox */
+.table-calc .item-value .checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 25px;
+  width: 25px;
+}
+.table-calc .item-value .calc-value-text .checkmark {
+  display: none;
+}
+
+.table-calc .item-value .dummy-text {
+  font-size: 0px;
+}
+/* When the checkbox is checked, add a blue background */
+.table-calc .item-value .chbox.checked .checkmark {
+  background-color: #2196F3;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.table-calc .item-value .chbox .checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the checkmark when checked */
+.table-calc .item-value .chbox.checked .checkmark:after {
+  display: block;
+}
+
+/* Style the checkmark/indicator */
+.table-calc .item-value .chbox.checked .checkmark:after {
+  left: 10px;
+  top: 6px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
 }
 </style>
 
