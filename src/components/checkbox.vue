@@ -1,4 +1,4 @@
-<template id="app-calctable-template"  type="text/x-template">
+<template>
   <div class="control" :class="controlclass">
     <div class="b-checkbox" :class="[classtype, classinline, classcircular]">
         <input :id="id" class="styled" :checked="checked" type="checkbox" @click="click"/>
