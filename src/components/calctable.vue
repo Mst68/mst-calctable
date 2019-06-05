@@ -297,6 +297,18 @@ h2 {
 
 .table-calc  {
   position: relative;
+  & table {
+    border: 2px solid #c2c2c2;
+      
+  }
+  
+  & th {
+    min-width: 80px;
+    padding: 6px;
+  }
+  & tr {
+      min-height: 20px;
+  }
 }
 
 .table-calc .select-cell {
