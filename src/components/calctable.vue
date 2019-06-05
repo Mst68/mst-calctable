@@ -1,6 +1,6 @@
 <template>
   <div class="table-calc">
-    <div class="" :class="options.containerClass">
+    <div class="inner-calc-border" :class="options.containerClass">
       <table class="table" @keydown.stop.prevent="keydown($event)" tabindex="0" ref="tableCalcTable">
         <thead>
           <tr :class="options.headerClass">
@@ -297,11 +297,16 @@ h2 {
 
 .table-calc  {
   position: relative;
-  & table {
+  
+  & .inner-calc-border {
     border: 2px solid #c2c2c2;
-      
+    margin: 10px 20px;
+    min-width: 500px;
   }
   
+  & table {
+      width:100%;
+  }
   & th {
     min-width: 80px;
     padding: 6px;
@@ -309,90 +314,83 @@ h2 {
   & tr {
       min-height: 20px;
   }
-}
+  & .select-cell {
+    background-color: #dedede;
+  }
+  & #edit_component {
+    position: absolute;
+    margin: -.5em -.75em;
 
-.table-calc .select-cell {
-  background-color: #dedede;
-}
-.table-calc .item-value {
-  min-width: 20px;
-}
+    & .calc-input {
+      width: 100%;
+      height: 100%;
 
-.table-calc .calc-input {
-  width: 100%;
-  height: 100%;
-}
-.table-calc #edit_component {
-  position: absolute;
-  margin: -.5em -.75em;
-}
-
-.table-calc #edit_component input {
-  width: 100%;
-  height: 100%;
-}
-
-
-.table-calc .item-value .chbox {
-  display: block;
-  position: relative;
-  padding-left: 35px;
-  margin-bottom: 0px;
-  cursor: pointer;
-  font-size: 22px;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  line-height: 0.8em;
-}
-.table-calc .item-value .chbox .value-text {
-  display: none;
-}
+    }
+  }
+  
+  & .item-value {
+    min-width: 20px;
+    & .chbox {
+      display: block;
+      position: relative;
+      padding-left: 35px;
+      margin-bottom: 0px;
+      cursor: pointer;
+      font-size: 22px;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      line-height: 0.8em;
+    }
 
 /* Create a custom checkbox */
-.table-calc .item-value .checkmark {
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 25px;
-  width: 25px;
-}
-.table-calc .item-value .calc-value-text .checkmark {
-  display: none;
-}
+    & .checkmark {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 25px;
+      width: 25px;
+    }
+    & .calc-value-text .checkmark {
+      display: none;
+    }
 
-.table-calc .item-value .dummy-text {
-  font-size: 0px;
-}
-/* When the checkbox is checked, add a blue background */
-.table-calc .item-value .chbox.checked .checkmark {
-  background-color: #2196F3;
-}
-
+    & .dummy-text {
+      font-size: 0px;
+    }
+  /* When the checkbox is checked, add a blue background */
+    &  .chbox .value-text {
+      display: none;
+    }
+    & .chbox.checked .checkmark {
+      background-color: #2196F3;
+    }
+    & .chbox .checkmark:after {
+      content: "";
+      position: absolute;
+      display: none;
+    }
 /* Create the checkmark/indicator (hidden when not checked) */
-.table-calc .item-value .chbox .checkmark:after {
-  content: "";
-  position: absolute;
-  display: none;
-}
 
 /* Show the checkmark when checked */
-.table-calc .item-value .chbox.checked .checkmark:after {
-  display: block;
-}
+    & .chbox.checked .checkmark:after {
+      display: block;
+    }
+    & .chbox.checked .checkmark:after {
+      left: 10px;
+      top: 6px;
+      width: 5px;
+      height: 10px;
+      border: solid white;
+      border-width: 0 3px 3px 0;
+      -webkit-transform: rotate(45deg);
+      -ms-transform: rotate(45deg);
+      transform: rotate(45deg);
+    }
+  }
+
 
 /* Style the checkmark/indicator */
-.table-calc .item-value .chbox.checked .checkmark:after {
-  left: 10px;
-  top: 6px;
-  width: 5px;
-  height: 10px;
-  border: solid white;
-  border-width: 0 3px 3px 0;
-  -webkit-transform: rotate(45deg);
-  -ms-transform: rotate(45deg);
-  transform: rotate(45deg);
 }
 </style>
-

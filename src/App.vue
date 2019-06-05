@@ -8,6 +8,7 @@
 </template>
 <script>
   import calctable from './components/calctable';
+  import sassStyles from './sass/mststyle.scss';
   
   export default {
     name: 'app',
