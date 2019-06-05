@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <div>
-      This is example of calculating table.
+      This is example of calculating table. AAA.
     </div>
     <calc-table :rows="calcData" :setup="calcDef"></calc-table>
   </div>
