@@ -98,11 +98,19 @@ export default {
       label: 'Checked',
       class: '',
       component: '',
-      type: 'checkbox',
+      type: 'checked',
       disabled: false,
       hidden: false,
       func: function(){
 
+      },
+      displayClass: function(value, setup){
+        var result = ['chbox'];
+        if(val != null && val != ''){
+          result.push('checked');
+        }
+        return result.join(' ');
+        
       }
     },
   ],

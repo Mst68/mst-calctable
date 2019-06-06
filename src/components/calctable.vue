@@ -19,7 +19,7 @@
           <tr v-for="(item, rowindex) in rows" :class="options.rowClass">
             <td v-for="(col, colindex) in cols" :class="col.class">
               <div class="item-value" :class="cellSelected(colindex, rowindex)" @click="selectCell(colindex, rowindex)" @dblclick="setEdit()"  :ref="getId(colindex, rowindex)">
-                <div :class="getDisplayValueClass(item, col)">
+                <div :class="displayClass(item, col)">
                   <span class="value-text">{{display(item,col)}}&nbsp;</span>
                   <span class="checkmark"></span>
                   <span class="dummy-text"></span>
@@ -147,6 +147,20 @@ export default {
       else
         return item[colDef.name];
     },
+    displayClass: function(item, colDef){
+      var result = [];
+      if(colDef.type == 'checked'){   //only shows not empty value as a checkbox
+        result.push('chbox');
+        var val = this.display(item, colDef);
+        if(val != null && val != ''){
+          result.push('checked');
+        }
+      }
+      else{
+        result.push('calc-value-text');
+      }
+      return result.join(' ');
+    },
     cellSelected: function(colindex, rowindex){
       if(this.curX == colindex && this.curY == rowindex)
         return 'select-cell';
@@ -260,20 +274,6 @@ export default {
     cancelEdit: function(){
       this.editMode = false;
       this.$refs.tableCalcTable.focus();
-    },
-    getDisplayValueClass: function(item, colDef){
-      var result = [];
-      if(colDef.type == 'checkbox'){
-        result.push('chbox');
-        var val = this.display(item, colDef);
-        if(val != null && val != ''){
-          result.push('checked');
-        }
-      }
-      else{
-        result.push('calc-value-text');
-      }
-      return result.join(' ');
     },
   },
   mounted: function(){
