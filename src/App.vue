@@ -1,9 +1,26 @@
 <template>
   <div id="app">
-    <div>
-      This is example of calculating table. AAA.
-    </div>
+    <h2>
+      MST Calculating Table
+    </h2>
     <calc-table :rows="calcData" :setup="calcDef"></calc-table>
+    <div class="desc">
+      <p>
+        Let's think about table for operator like excel spreadsheet. Each cell can have special value and other can have calculation formula. 
+        Connection of data from database and calculating values in dedicated application often use defined functions for each purpose.<br/>
+        This component connect possibility of values calculations ith dedicated formulas, which are defined in application.<br/>
+        Examples? Payroll, refund, allotments, rates, fee, prices, invoices etc. Additionaly in application each of this types can have many different versions. 
+      </p>
+      <p>
+        Main component creates a table from definition with rows data. Each column contains set of properties. 
+        Component use subcomponents to show, edit, select and display value. <br/>
+      </p>
+      <p>
+        This example contains two subcomponents: simple edit and checked. In the future I'll add more working components.
+        Column [Total] is calucated from [Days] and [Day rate]. If [Total] is not empty and not 0, [Checked] will be display as checkbox.
+        
+      </p>
+    </div>
   </div>
 </template>
 <script>
@@ -48,5 +65,12 @@
         color: #42b983;
       }
     }
+  }
+  p {
+    padding-bottom: 10px;
+  }
+  .desc {
+      text-align: left;
+      padding: 30px;
   }
 </style>

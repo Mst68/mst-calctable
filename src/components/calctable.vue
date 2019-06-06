@@ -140,26 +140,28 @@ export default {
     display: function(item, colDef){
       if(item[colDef.name] == null)
         return '';
-      if(colDef['displayFn'] != null){
-        dfn = colDef['displayFn'];
-        return dfn(item, colDef);
+      if(colDef['display'] != null){
+        dfn = colDef['display'];
+        return dfn(item, colDef, this.setup);
       }
       else
         return item[colDef.name];
     },
     displayClass: function(item, colDef){
-      var result = [];
-      if(colDef.type == 'checked'){   //only shows not empty value as a checkbox
-        result.push('chbox');
-        var val = this.display(item, colDef);
-        if(val != null && val != ''){
-          result.push('checked');
-        }
+      var result = '';
+      var dfn = '';
+
+    if(colDef['displayClass'] != null){
+        dfn = colDef['displayClass'];
+        if(typeof dfn == 'string' )
+          result = dfn;
+        else
+          result = dfn(item, colDef, this.setup);
       }
       else{
-        result.push('calc-value-text');
+        result = 'calc-value-text';
       }
-      return result.join(' ');
+      return result;
     },
     cellSelected: function(colindex, rowindex){
       if(this.curX == colindex && this.curY == rowindex)
@@ -168,7 +170,7 @@ export default {
     },
     selectCell: function(colindex, rowindex){
       if(this.editMode)
-        return;
+        this.cancelEdit();
       this.curX = colindex;
       this.curY = rowindex;
     },
@@ -278,7 +280,11 @@ export default {
   },
   mounted: function(){
     //console.log('itemList mounted');
-//    this.$store.dispatch('getRecord');
+    try {
+      var init = this.setup.functions['init'];
+      if(init != null && typeof init == 'function')
+        init(this.rows, this.setup);
+    }catch(e){ }
   }
 };
 </script>

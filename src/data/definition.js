@@ -99,14 +99,14 @@ export default {
       class: '',
       component: '',
       type: 'checked',
-      disabled: false,
+      disabled: true,
       hidden: false,
       func: function(){
 
       },
-      displayClass: function(value, setup){
+      displayClass: function(row, colDef, setup){
         var result = ['chbox'];
-        if(val != null && val != ''){
+        if(row['checked'] != null && row['checked'] != ''){
           result.push('checked');
         }
         return result.join(' ');
@@ -127,14 +127,28 @@ export default {
       try {
         var dr = parseFloat(data[curY]['day_rate']);
         var days = parseFloat(data[curY]['days']);
-        if(!isNaN(dr) && !isNaN(days))
+        if(!isNaN(dr) && !isNaN(days)){
           data[curY]['total'] = Math.round(days * dr * 100)/ 100;
-        else
+          if(data[curY]['total'] != 0)
+            data[curY]['checked'] = 'Y';
+          else
+            data[curY]['checked'] = '';
+        }
+        else{
           data[curY]['total'] = 'Err';
+          data[curY]['checked'] = '';
+        }
       }
       catch(e){
         data[curY]['total'] = '';
+        data[curY]['checked'] = '';
       }
+    },
+    init: function(data, setup){
+      debugger;
+      data.forEach(function(item, index){
+        setup.functions.calculateValue(data, 0, index);
+      });
     }
   }
 };
